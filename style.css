@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.page {
+    padding: 20px;
+}
+
+#registerPage {
+    text-align: center;
+}
+
+input[type="text"], input[type="password"], input[type="file"] {
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#mainPage {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    width: 30%;
+    background-color: #f8f8f8;
+    padding: 20px;
+}
+
+.content {
+    width: 60%;
+    padding: 20px;
+}
+
+#chat {
+    margin-bottom: 10px;
+    height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-size: cover;
+    background-position: center;
+}
+
+#chatMessage {
+    width: 80%;
+    padding: 10px;
+}
+
+.quote {
+    margin-top: 20px;
+}
+
+.profile {
+    margin-top: 20px;
+}
+
+#profilePage {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.chat-message {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.chat-message strong {
+    color: #ff6347;
+}
