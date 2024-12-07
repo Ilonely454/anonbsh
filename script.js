@@ -1,141 +1,99 @@
-// Локальное хранилище для пользователей и их данных
-let users = JSON.parse(localStorage.getItem('users')) || [];
-
-// Функция регистрации
-document.getElementById('registerForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if (password.length < 8) {
-        document.getElementById('error').textContent = "Пароль должен быть не менее 8 символов!";
-        return;
+// Проверка на существование зарегистрированных пользователей в локальном хранилище
+function loadUser() {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+        showChatPage(storedUser);
+    } else {
+        showRegistrationPage();
     }
+}
 
-    // Проверка, чтобы логин не был уже зарегистрирован
-    if (users.some(user => user.username === username)) {
-        document.getElementById('error').textContent = "Этот логин уже занят!";
-        return;
+// Отображение страницы регистрации
+function showRegistrationPage() {
+    document.getElementById('registrationForm').style.display = 'block';
+    document.getElementById('chatPage').style.display = 'none';
+}
+
+// Отображение страницы чата
+function showChatPage(user) {
+    document.getElementById('registrationForm').style.display = 'none';
+    document.getElementById('chatPage').style.display = 'block';
+    document.getElementById('userSettings').innerHTML = `
+        <h3>Личный кабинет</h3>
+        <p><strong>Имя:</strong> ${user.username}</p>
+        <button id="changeAvatarBtn">Изменить аватар</button>
+        <button id="changeWallpaperBtn">Изменить обои</button>
+        <button id="logoutBtn">Выйти</button>
+    `;
+    document.getElementById('changeAvatarBtn').addEventListener('click', changeAvatar);
+    document.getElementById('changeWallpaperBtn').addEventListener('click', changeWallpaper);
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    loadMessages();
+}
+
+// Логика регистрации пользователя
+document.getElementById('registerBtn').addEventListener('click', function() {
+    const username = document.getElementById('regUsername').value;
+    const password = document.getElementById('regPassword').value;
+    if (username && password.length >= 8) {
+        const user = { username, password };
+        localStorage.setItem('user', JSON.stringify(user));
+        showChatPage(user);
+    } else {
+        document.getElementById('errorMessage').textContent = 'Пароль должен быть не менее 8 символов!';
     }
-
-    // Сохранение пользователя в локальное хранилище
-    users.push({ 
-        username, 
-        password, 
-        avatar: '', 
-        chatBackground: '', 
-        role: 'user', 
-        messages: [] 
-    });
-    localStorage.setItem('users', JSON.stringify(users));
-
-    // Переход на главную страницу
-    localStorage.setItem('currentUser', username);
-    showMainPage();
 });
 
-// Переход на главную страницу
-function showMainPage() {
-    document.getElementById('registerPage').style.display = 'none';
-    document.getElementById('mainPage').style.display = 'block';
-    loadChat();
+// Функция для выхода
+function logout() {
+    localStorage.removeItem('user');
+    showRegistrationPage();
 }
 
-// Переход в личный кабинет
-function goToProfile() {
-    document.getElementById('mainPage').style.display = 'none';
-    document.getElementById('profilePage').style.display = 'block';
-}
-
-// Назад на главную
-function backToMain() {
-    document.getElementById('profilePage').style.display = 'none';
-    document.getElementById('mainPage').style.display = 'block';
-}
-
-// Получение текущего пользователя
-function getCurrentUser() {
-    const username = localStorage.getItem('currentUser');
-    return users.find(user => user.username === username);
-}
-
-// Отправка сообщений в чат
-function sendMessage() {
-    const message = document.getElementById('chatMessage').value;
-    if (message.trim() === '') return;
-
-    const user = getCurrentUser();
+// Чат: получение сообщений из локального хранилища
+function loadMessages() {
+    const messages = JSON.parse(localStorage.getItem('messages')) || [];
     const chatDiv = document.getElementById('chat');
-
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('chat-message');
-    messageDiv.style.color = getRandomColor();
-
-    // Проверка наличия аватара у пользователя
-    const avatarImg = user.avatar ? `<img src="${user.avatar}" class="avatar-img" />` : '';
-    messageDiv.innerHTML = `${avatarImg}<strong>${user.username}</strong>: ${message}`;
-    chatDiv.appendChild(messageDiv);
-
-    // Сохранение сообщения в истории пользователя
-    user.messages.push({ username: user.username, message });
-    localStorage.setItem('users', JSON.stringify(users));
-
-    document.getElementById('chatMessage').value = '';
-    chatDiv.scrollTop = chatDiv.scrollHeight;
-}
-
-// Смена аватара
-function changeAvatar(event) {
-    const user = getCurrentUser();
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        user.avatar = e.target.result;
-        localStorage.setItem('users', JSON.stringify(users));
-    }
-
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-// Смена фона чата
-function changeChatBackground(event) {
-    const user = getCurrentUser();
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        user.chatBackground = e.target.result;
-        localStorage.setItem('users', JSON.stringify(users));
-        document.getElementById('chat').style.backgroundImage = `url(${e.target.result})`;
-    }
-
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-// Генерация случайного цвета для ника
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
-// Загрузка чата
-function loadChat() {
-    const chatDiv = document.getElementById('chat');
-    const user = getCurrentUser();
-
-    if (user.chatBackground) {
-        chatDiv.style.backgroundImage = `url(${user.chatBackground})`;
-    }
-
-    // Отображение сообщений
-    user.messages.forEach(msg => {
+    messages.forEach(msg => {
         const messageDiv = document.createElement('div');
-        messageDiv.classList.add('chat-message');
-        messageDiv.style.color = getRandomColor();
         messageDiv.innerHTML = `<strong>${msg.username}</strong>: ${msg.message}`;
         chatDiv.appendChild(messageDiv);
     });
 }
+
+// Отправка сообщения
+document.getElementById('sendMessageBtn').addEventListener('click', function() {
+    const message = document.getElementById('chatMessage').value;
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (message && user) {
+        const messageData = { username: user.username, message };
+        saveMessage(messageData);
+        document.getElementById('chatMessage').value = '';
+    }
+});
+
+// Сохранение сообщения в локальном хранилище
+function saveMessage(messageData) {
+    const messages = JSON.parse(localStorage.getItem('messages')) || [];
+    messages.push(messageData);
+    localStorage.setItem('messages', JSON.stringify(messages));
+    loadMessages();  // Обновляем чат
+}
+
+// Функции для смены аватара и обоев
+function changeAvatar() {
+    const newAvatar = prompt("Введите ссылку на новый аватар:");
+    const user = JSON.parse(localStorage.getItem('user'));
+    user.avatar = newAvatar;
+    localStorage.setItem('user', JSON.stringify(user));
+    alert('Аватар изменен!');
+}
+
+function changeWallpaper() {
+    const newWallpaper = prompt("Введите ссылку на новые обои:");
+    document.body.style.backgroundImage = `url(${newWallpaper})`;
+    alert('Обои изменены!');
+}
+
+// Начинаем работу с загрузки страницы
+loadUser();
