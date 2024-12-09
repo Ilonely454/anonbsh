@@ -12,33 +12,32 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            background: linear-gradient(135deg, #74ebd5, #9face6);
-            color: #333;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #f5f5f5;
         }
 
         .container {
             display: flex;
             flex-direction: column;
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
+            background: #0f3460;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
             margin: auto;
             width: 95%;
-            max-width: 1200px;
+            max-width: 1100px;
             overflow: hidden;
         }
 
         .sidebar {
-            background: #3f51b5;
-            color: #fff;
+            background: #1a1a2e;
+            color: #e0e0e0;
             padding: 20px;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar h2 {
             font-size: 1.5em;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             text-transform: uppercase;
         }
 
@@ -49,9 +48,17 @@
         }
 
         .sidebar ul li {
-            padding: 10px 0;
+            padding: 10px 15px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(128, 0, 128, 0.2);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .sidebar ul li:hover {
+            background: #16213e;
+            transform: translateY(-3px);
         }
 
         .chat-container {
@@ -59,52 +66,61 @@
             display: flex;
             flex-direction: column;
             padding: 20px;
-            background: #f3f4f7;
+            background: #121212;
         }
 
         .registration-form, .chat-box {
             width: 100%;
             display: flex;
             flex-direction: column;
+            align-items: center;
         }
 
-        .registration-form input, 
+        .registration-form input,
         .chat-input input {
-            padding: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
             margin: 10px 0;
-            border: 1px solid #ddd;
+            border: 1px solid #2c2c2c;
             border-radius: 8px;
-            font-size: 1em;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: #1f1f1f;
+            color: #e0e0e0;
             outline: none;
         }
 
         .registration-form button {
-            background: #3f51b5;
-            color: #fff;
+            background: #3a7bd5;
+            color: #ff0000;
             border: none;
-            padding: 12px;
+            padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            font-size: 1em;
+            transition: background 0.3s, transform 0.2s;
         }
 
         .registration-form button:hover {
-            background: #283593;
+            background: #274b89;
+            transform: translateY(-3px);
         }
 
         .chat-window {
             flex: 1;
-            height: 300px;
-            background: #fff;
-            border-radius: 10px;
-            overflow-y: auto;
+            width: 100%;
+            max-width: 600px;
+            background: #1f1f1f;
+            border-radius: 8px;
             padding: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .chat-input {
             display: flex;
+            width: 100%;
+            max-width: 600px;
             align-items: center;
             gap: 10px;
             margin-top: 10px;
@@ -112,14 +128,13 @@
 
         .chat-input input {
             flex: 1;
-            margin: 0;
         }
 
         .send-button {
             background: #25d366;
             border: none;
             color: white;
-            padding: 10px;
+            padding: 12px;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -138,14 +153,14 @@
         .quote-box {
             padding: 20px;
             margin: 20px 0;
-            background: #f5f5f5;
+            background: #1a1a2e; /* Изменен фон на темно-синий */
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .quote-box h3 {
-            color: #3f51b5;
+            color: #3a7bd5;
             font-weight: bold;
             margin-bottom: 10px;
         }
@@ -166,10 +181,6 @@
             .chat-container {
                 width: 75%;
             }
-
-            .chat-input {
-                flex-direction: row;
-            }
         }
     </style>
 </head>
@@ -178,12 +189,9 @@
         <aside class="sidebar">
             <h2>Новости</h2>
             <ul>
-                <li>Вероникина жинь больше не будет прежней</li>
-                <li>На колени на колени</li>
-                <li>Присыпка/li>
-                <li>тушонка со спермой</li>
-                <li>волосатый анус</li>
-                <li>рыжие яйца</li>
+                <li>Я человек</li>
+                <li>Я счастлив</li>
+                <li>Я здоров</li>
             </ul>
         </aside>
         <main class="chat-container">
@@ -203,7 +211,7 @@
         </main>
         <div class="quote-box">
             <h3>Цитата дня</h3>
-            <p id="quote">"АСД"</p>
+            <p id="quote">"бебры все в адидасах"</p>
         </div>
     </div>
     <script>
