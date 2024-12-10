@@ -91,7 +91,7 @@
 
         .registration-form button {
             background: #3a7bd5;
-            color: #ff0000;
+            color: #fff;
             border: none;
             padding: 12px 20px;
             border-radius: 8px;
@@ -153,16 +153,45 @@
         .quote-box {
             padding: 20px;
             margin: 20px 0;
-            background: #1a1a2e; /* Изменен фон на темно-синий */
+            background: #1a1a2e; /* Такой же фон, как у страницы */
             border-radius: 10px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #3a7bd5; /* Подчёркивание синей рамкой */
+            color: #e0e0e0;
         }
 
         .quote-box h3 {
             color: #3a7bd5;
             font-weight: bold;
             margin-bottom: 10px;
+        }
+
+        /* Переливающийся ник */
+        .nickname {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s infinite;
+        }
+
+        /* Переливающийся ник в сообщениях */
+        .nickname-in-message {
+            font-size: 16px;
+            font-weight: bold;
+            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         @media (min-width: 600px) {
@@ -213,7 +242,9 @@
             <h3>Цитата дня</h3>
             <p id="quote">"бебры все в адидасах"</p>
         </div>
+        <div class="nickname" id="nicknameDisplay"></div>
     </div>
+
     <script>
         function register() {
             const username = document.getElementById('username').value;
@@ -222,6 +253,7 @@
                 localStorage.setItem('username', username);
                 document.getElementById('registrationForm').style.display = 'none';
                 document.getElementById('chatBox').style.display = 'block';
+                document.getElementById('nicknameDisplay').textContent = username;
                 loadMessages();
                 alert(`Добро пожаловать, ${username}!`);
             } else {
@@ -236,8 +268,15 @@
             const username = localStorage.getItem('username');
             if (message && username) {
                 const newMessage = document.createElement('div');
-                newMessage.textContent = `${username}: ${message}`;
+                const userNick = document.createElement('span');
+                userNick.className = 'nickname-in-message';
+                userNick.textContent = `${username}: `;
+                newMessage.appendChild(userNick);
+                const messageText = document.createElement('span');
+                messageText.textContent = message;
+                newMessage.appendChild(messageText);
                 chatWindow.appendChild(newMessage);
+                
                 let messages = JSON.parse(localStorage.getItem('messages')) || [];
                 messages.push({ username, message });
                 localStorage.setItem('messages', JSON.stringify(messages));
@@ -250,9 +289,15 @@
             const chatWindow = document.getElementById('chatWindow');
             let messages = JSON.parse(localStorage.getItem('messages')) || [];
             messages.forEach(msg => {
-                const messageElement = document.createElement('div');
-                messageElement.textContent = `${msg.username}: ${msg.message}`;
-                chatWindow.appendChild(messageElement);
+                const newMessage = document.createElement('div');
+                const userNick = document.createElement('span');
+                userNick.className = 'nickname-in-message';
+                userNick.textContent = `${msg.username}: `;
+                newMessage.appendChild(userNick);
+                const messageText = document.createElement('span');
+                messageText.textContent = msg.message;
+                newMessage.appendChild(messageText);
+                chatWindow.appendChild(newMessage);
             });
         }
 
@@ -261,6 +306,7 @@
             if (username) {
                 document.getElementById('registrationForm').style.display = 'none';
                 document.getElementById('chatBox').style.display = 'block';
+                document.getElementById('nicknameDisplay').textContent = username;
                 loadMessages();
             }
         }
