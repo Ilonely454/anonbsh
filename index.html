@@ -1,50 +1,447 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rick Roll</title>
+    <title>Чат с регистрацией</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&family=Lobster&family=Pacifico&family=Courgette&family=Quicksand&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            background: #121212;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin: auto;
+            width: 95%;
+            max-width: 1100px;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 1.5em;
             text-align: center;
-            font-family: Arial, sans-serif;
-            margin-top: 20%;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
-        #startBtn {
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            border: none;
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 10px 15px;
+            text-align: center;
+            border: 1px solid rgba(128, 0, 128, 0.2);
             border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background 0.3s, transform 0.2s;
         }
-        #startBtn:hover {
-            background-color: #0056b3;
+
+        .sidebar ul li:hover {
+            background: #16213e;
+            transform: translateY(-3px);
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background: #121212;
+        }
+
+        .registration-form, .chat-box {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .registration-form input,
+        .chat-input input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #2c2c2c;
+            border-radius: 8px;
+            background: #1f1f1f;
+            color: #e0e0e0;
+            outline: none;
+        }
+
+        .registration-form button {
+            background: #FFFFFF;
+            color: #ff0000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .registration-form button:hover {
+            background: #274b89;
+            transform: translateY(-3px);
+        }
+
+        .chat-window {
+            flex: 1;
+            width: 100%;
+            max-width: 600px;
+            background: #1f1f1f;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-input {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+        }
+
+        .send-button {
+            background: #25d366;
+            border: none;
+            color: white;
+            padding: 12px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s;
+        }
+
+        .send-button:hover {
+            background: #128c7e;
+        }
+
+        .quote-box {
+            padding: 20px;
+            margin: 20px 0;
+            background: #1a1a2e;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote-box h3 {
+            color: #FFFFFF;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Переливающийся ник */
+        .nickname {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s infinite;
+        }
+
+        /* Переливающийся ник в сообщениях */
+        .nickname-in-message {
+            font-size: 16px;
+            font-weight: bold;
+            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media (min-width: 600px) {
+            body {
+                flex-direction: row;
+            }
+
+            .container {
+                flex-direction: row;
+            }
+
+            .sidebar {
+                width: 25%;
+            }
+
+            .chat-container {
+                width: 75%;
+            }
+        }
+
+        /* Темы */
+        .black-theme .chat-window {
+            background: #000;
+        }
+
+        .white-theme .chat-window {
+            background: #fff;
+            color: #000;
+        }
+
+        .red-theme .chat-window {
+            background: #8B0000;
+            color: #fff;
+        }
+    
+          .green-theme .chat-window {
+            background: #B4F585;
+        }
+
+        .yellow-theme .chat-window {
+            background: #FACF34;
+            color: #000;
+        }
+
+        .purple-theme .chat-window {
+            background: #855AFF;
+            color: #fff;
+        }            
+
+        /* Иконка шестеренки */
+        .settings-icon {
+            position: fixed;
+            bottom: 625px;
+            right: 20px;
+            background-color: #16213e;
+            border-radius: 50%;
+            padding: 15px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .settings-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Меню настроек */
+        .settings-menu {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background-color: #2e2e2e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            width: 200px;
+        }
+
+        .settings-menu select,
+        .settings-menu button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #1f1f1f;
+            color: #e0e0e0;
+            border: 1px solid #2c2c2c;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .settings-menu select {
+            background: #2c2c2c;
         }
     </style>
 </head>
 <body>
-    <h1>Click to Play "Never Gonna Give You Up"</h1>
-    <button id="startBtn">Play Music</button>
-    <audio id="rickAstley" loop>
-        <!-- Добавьте рабочую ссылку на MP3 -->
-        <source src="https://file-examples.com/storage/fecb8b38cf9b381c734af9b/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <script>
-        const audio = document.getElementById('rickAstley');
-        const startBtn = document.getElementById('startBtn');
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Новости</h2>
+            <ul>
+                <li>Вероника Тушенка</li>
+                <li>Я гений</li>
+                <li>Давид Тевирп</li>
+            </ul>
+        </aside>
+        <main class="chat-container">
+            <div class="registration-form" id="registrationForm">
+                <h2>Регистрация</h2>
+                <input type="text" id="username" placeholder="Логин">
+                <input type="password" id="password" placeholder="Пароль">
+                <button onclick="register()">Зарегистрироваться</button>
+            </div>
+            <div class="chat-box" id="chatBox" style="display: none;">
+                <div class="chat-window" id="chatWindow"></div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Введите сообщение...">
+                    <button class="send-button" onclick="sendMessage()">&#9658;</button>
+                </div>
+            </div>
+        </main>
+        <div class="quote-box">
+            <h3>Цитата дня</h3>
+            <p id="quote">"Добро пожаловать в анонимный чат!"</p>
+        </div>
+        <div class="nickname" id="nicknameDisplay"></div>
+    </div>
 
-        // Включение звука после нажатия
-        startBtn.addEventListener('click', () => {
-            audio.play().then(() => {
-                console.log("Audio is playing");
-            }).catch(err => {
-                console.error("Failed to play audio:", err);
+    <!-- Иконка шестеренки -->
+    <div class="settings-icon" onclick="toggleSettingsMenu()">
+        <i class="fas fa-cogs"></i>
+    </div>
+
+    <!-- Меню настроек -->
+    <div class="settings-menu" id="settingsMenu">
+        <h3>Настройки</h3>
+        <select id="fontSelector" onchange="changeFont()">
+            <option value="Roboto">Шрифт 1: Default</option>
+            <option value="Open Sans">Шрифт 2: Open Sans</option>
+            <option value="Lobster">Шрифт 3: Lobster</option>
+            <option value="Pacifico">Шрифт 4: Pacifico</option>
+            <option value="Courgette">Шрифт 5: Courgette</option>
+            <option value="Quicksand">Шрифт 6: Quicksand</option>
+            <option value="Permanent Marker">Шрифт 7: Permanent Marker</option>
+        </select>
+        <select id="themeSelector" onchange="changeTheme()">
+            <option value="default">Тема: По умолчанию</option>
+            <option value="black-theme">Тема: Черная</option>
+            <option value="white-theme">Тема: Белая</option>
+            <option value="red-theme">Тема: Красная</option>
+            <option value="green-theme">Тема: Зеленая</option>
+            <option value="yellow-theme">Тема: Желтая</option>
+            <option value="purple-theme">Тема: Фиолетовая</option>
+        </select>
+    </div>
+
+    <script>
+        // Функция для регистрации
+        function register() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username && password) {
+                localStorage.setItem('username', username);
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('chatBox').style.display = 'block';
+                document.getElementById('nicknameDisplay').textContent = username;
+                loadMessages();
+                alert(`Добро пожаловать, ${username}!`);
+            } else {
+                alert('Пожалуйста, заполните все поля!');
+            }
+        }
+
+        // Функция отправки сообщений
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+            const chatWindow = document.getElementById('chatWindow');
+            const username = localStorage.getItem('username');
+            if (message && username) {
+                const newMessage = document.createElement('div');
+                const userNick = document.createElement('span');
+                userNick.className = 'nickname-in-message';
+                userNick.textContent = `${username}: `;
+                newMessage.appendChild(userNick);
+                const messageText = document.createElement('span');
+                messageText.textContent = message;
+                newMessage.appendChild(messageText);
+                chatWindow.appendChild(newMessage);
+
+                let messages = JSON.parse(localStorage.getItem('messages')) || [];
+                messages.push({ username, message });
+                localStorage.setItem('messages', JSON.stringify(messages));
+                messageInput.value = '';
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+        }
+
+        // Функция для загрузки сообщений
+        function loadMessages() {
+            const chatWindow = document.getElementById('chatWindow');
+            let messages = JSON.parse(localStorage.getItem('messages')) || [];
+            messages.forEach(msg => {
+                const newMessage = document.createElement('div');
+                const userNick = document.createElement('span');
+                userNick.className = 'nickname-in-message';
+                userNick.textContent = `${msg.username}: `;
+                newMessage.appendChild(userNick);
+                const messageText = document.createElement('span');
+                messageText.textContent = msg.message;
+                newMessage.appendChild(messageText);
+                chatWindow.appendChild(newMessage);
             });
-            startBtn.style.display = 'none'; // Скрыть кнопку
-        });
+        }
+
+        // Функция для изменения шрифта
+        function changeFont() {
+            const font = document.getElementById('fontSelector').value;
+            document.body.style.fontFamily = font;
+        }
+
+        // Функция для изменения темы
+        function changeTheme() {
+            const theme = document.getElementById('themeSelector').value;
+            const chatBox = document.getElementById('chatBox');
+            chatBox.className = theme;
+        }
+
+        // Функция для открытия/закрытия меню настроек
+        function toggleSettingsMenu() {
+            const menu = document.getElementById('settingsMenu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+
+        window.onload = function() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('chatBox').style.display = 'block';
+                document.getElementById('nicknameDisplay').textContent = username;
+                loadMessages();
+            }
+        }
     </script>
 </body>
 </html>
