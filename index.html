@@ -1,447 +1,323 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чат с регистрацией</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&family=Lobster&family=Pacifico&family=Courgette&family=Quicksand&family=Permanent+Marker&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: #f5f5f5;
-        }
+<html lang="ru"><head><style class="vjs-styles-defaults">
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            background: #121212;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            margin: auto;
-            width: 95%;
-            max-width: 1100px;
-            overflow: hidden;
-        }
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"><link rel="icon" href="/img/favicon.ico"><script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202412090101/show_ads_impl_fy2021.js"></script><script src="https://connect.facebook.net/signals/config/331851341429939?v=2.9.179&amp;r=stable&amp;domain=bilimclass.kz&amp;hme=b8122d5d96cd6f542162ba4f497489972d1ebe228d24c39d34f560e30ae932ce&amp;ex_m=70%2C122%2C107%2C111%2C61%2C4%2C100%2C69%2C16%2C97%2C89%2C51%2C54%2C173%2C176%2C188%2C184%2C185%2C187%2C29%2C101%2C53%2C77%2C186%2C168%2C171%2C181%2C182%2C189%2C132%2C41%2C191%2C192%2C34%2C144%2C15%2C50%2C197%2C196%2C134%2C18%2C40%2C1%2C43%2C65%2C66%2C67%2C71%2C93%2C17%2C14%2C96%2C92%2C91%2C108%2C52%2C110%2C39%2C109%2C30%2C94%2C26%2C169%2C172%2C141%2C86%2C56%2C84%2C33%2C73%2C0%2C95%2C32%2C28%2C82%2C83%2C88%2C47%2C46%2C87%2C37%2C11%2C12%2C13%2C6%2C7%2C25%2C22%2C23%2C57%2C62%2C64%2C75%2C102%2C27%2C76%2C9%2C8%2C80%2C48%2C21%2C104%2C103%2C105%2C98%2C10%2C20%2C3%2C38%2C74%2C19%2C5%2C90%2C81%2C44%2C35%2C85%2C2%2C36%2C63%2C42%2C106%2C45%2C79%2C68%2C112%2C60%2C59%2C31%2C99%2C58%2C55%2C49%2C78%2C72%2C24%2C113" async=""></script><script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script>window.yaContextCb = window.yaContextCb || []</script><script src="https://yandex.ru/ads/system/context.js" async=""></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9092233721152709" crossorigin="anonymous" data-checked-head="true"></script><title>BilimClass - BilimLand</title><style>.v-loading-screen {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #FFF;
+        padding: 2rem;
+      }
 
-        .sidebar {
-            background: #1a1a2e;
-            color: #e0e0e0;
-            padding: 20px;
-        }
+      .is-loading {
+          display: flex;
+      }
 
-        .sidebar h2 {
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+      .v-loader {
+          width: 200px;
+      }
 
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+      svg.v-loader-svg {
+          max-width: 100%;
+          fill: none;
+          stroke: #9ee9be;
+          stroke-linecap: round;
+          stroke-width: 8%
+      }
 
-        .sidebar ul li {
-            padding: 10px 15px;
-            text-align: center;
-            border: 1px solid rgba(128, 0, 128, 0.2);
-            border-radius: 5px;
-            margin-bottom: 10px;
-            transition: background 0.3s, transform 0.2s;
-        }
+      svg.v-loader-svg use {
+          stroke: #27AE60;
+          animation: a 2s linear infinite
+      }
 
-        .sidebar ul li:hover {
-            background: #16213e;
-            transform: translateY(-3px);
-        }
+      @keyframes a {
+          to {
+              stroke-dashoffset: 0;
+          }
+      }</style><script defer="defer" src="/spa/js/chunk-vendors.bdb8ef39.js"></script><script defer="defer" src="/spa/js/app.31ff6c86.js"></script><link href="/spa/css/chunk-vendors.18af44b9.css" rel="stylesheet"><link href="/spa/css/app.0d600255.css" rel="stylesheet"><link rel="preconnect" href="https://yastatic.net"><link rel="preconnect" href="https://avatars.mds.yandex.net"><link rel="preconnect" href="https://mc.yandex.ru"><link rel="preconnect" href="https://ads.adfox.ru"><link rel="preload" href="https://yastatic.net/s3/home/fonts/ys/3/text-variable-full.woff2" type="font/woff2" as="font" crossorigin="anonymous"><style id="ysTextCssRule">@font-face {
+        font-family: "YS Text Variable";
+        src: url("https://yastatic.net/s3/home/fonts/ys/3/text-variable-full.woff2") format("woff2");
+        font-weight: 400 700;
+        font-display: optional;
+    }</style><script async="" crossorigin="anonymous" src="https://yastatic.net/safeframe-bundles/0.83/host.js"></script><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9wSqI5i0iwGdf6L1CERNdmsTPgVu44ewj8QxTBYgsv1LCPUVF7YmWOvTappqB1139jAymxUW/RO8zmMqo4zlAAAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A+d7vJfYtay4OUbdtRPZA3y7bKQLsxaMEPmxgfhBGqKXNrdkCQeJlUwqa6EBbSfjwFtJWTrWIioXeMW+y8bWAgQAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script async="" charset="utf-8" src="https://mc.yandex.ru/metrika/tag.js"></script><link href="https://www.googletagmanager.com" rel="preconnect"><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-H0PMW9XH1S&amp;l=dataLayer"></script><style>.rhap_container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  font-family: inherit;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #fff;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+.rhap_container:focus:not(:focus-visible) {
+  outline: 0;
+}
+.rhap_container svg {
+  vertical-align: initial;
+}
 
-        .chat-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            background: #121212;
-        }
+.rhap_header {
+  margin-bottom: 10px;
+}
 
-        .registration-form, .chat-box {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.rhap_footer {
+  margin-top: 5px;
+}
 
-        .registration-form input,
-        .chat-input input {
-            width: 100%;
-            max-width: 400px;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #2c2c2c;
-            border-radius: 8px;
-            background: #1f1f1f;
-            color: #e0e0e0;
-            outline: none;
-        }
+.rhap_main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
 
-        .registration-form button {
-            background: #FFFFFF;
-            color: #ff0000;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background 0.3s, transform 0.2s;
-        }
+.rhap_stacked .rhap_controls-section {
+  margin-top: 8px;
+}
 
-        .registration-form button:hover {
-            background: #274b89;
-            transform: translateY(-3px);
-        }
+.rhap_horizontal {
+  flex-direction: row;
+}
+.rhap_horizontal .rhap_controls-section {
+  margin-left: 8px;
+}
 
-        .chat-window {
-            flex: 1;
-            width: 100%;
-            max-width: 600px;
-            background: #1f1f1f;
-            border-radius: 8px;
-            padding: 15px;
-            overflow-y: auto;
-            margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+.rhap_horizontal-reverse {
+  flex-direction: row-reverse;
+}
+.rhap_horizontal-reverse .rhap_controls-section {
+  margin-right: 8px;
+}
 
-        .chat-input {
-            display: flex;
-            width: 100%;
-            max-width: 600px;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
+.rhap_stacked-reverse {
+  flex-direction: column-reverse;
+}
+.rhap_stacked-reverse .rhap_controls-section {
+  margin-bottom: 8px;
+}
 
-        .chat-input input {
-            flex: 1;
-        }
+.rhap_progress-section {
+  display: flex;
+  flex: 3 1 auto;
+  align-items: center;
+}
 
-        .send-button {
-            background: #25d366;
-            border: none;
-            color: white;
-            padding: 12px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s;
-        }
+.rhap_progress-container {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  flex: 1 0 auto;
+  align-self: center;
+  margin: 0 calc(10px + 1%);
+  cursor: pointer;
+  -webkit-user-select: none;
+}
+.rhap_progress-container:focus:not(:focus-visible) {
+  outline: 0;
+}
 
-        .send-button:hover {
-            background: #128c7e;
-        }
+.rhap_time {
+  color: #333;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+}
 
-        .quote-box {
-            padding: 20px;
-            margin: 20px 0;
-            background: #1a1a2e;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+.rhap_progress-bar {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #dddddd;
+  border-radius: 2px;
+}
 
-        .quote-box h3 {
-            color: #FFFFFF;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+.rhap_progress-filled {
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  background-color: #868686;
+  border-radius: 2px;
+}
 
-        /* Переливающийся ник */
-        .nickname {
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-            background-size: 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient 3s infinite;
-        }
+.rhap_progress-bar-show-download {
+  background-color: rgba(221, 221, 221, 0.5);
+}
 
-        /* Переливающийся ник в сообщениях */
-        .nickname-in-message {
-            font-size: 16px;
-            font-weight: bold;
-            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-            background-size: 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient 3s infinite;
-        }
+.rhap_download-progress {
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  background-color: #dddddd;
+  border-radius: 2px;
+}
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+.rhap_progress-indicator {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  top: -8px;
+  background: #868686;
+  border-radius: 50px;
+  box-shadow: rgba(134, 134, 134, 0.5) 0 0 5px;
+}
 
-        @media (min-width: 600px) {
-            body {
-                flex-direction: row;
-            }
+.rhap_controls-section {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-between;
+  align-items: center;
+}
 
-            .container {
-                flex-direction: row;
-            }
+.rhap_additional-controls {
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+}
 
-            .sidebar {
-                width: 25%;
-            }
+.rhap_repeat-button {
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+  color: #868686;
+  margin-right: 6px;
+}
 
-            .chat-container {
-                width: 75%;
-            }
-        }
+.rhap_main-controls {
+  flex: 0 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-        /* Темы */
-        .black-theme .chat-window {
-            background: #000;
-        }
+.rhap_main-controls-button {
+  margin: 0 3px;
+  color: #868686;
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
+}
 
-        .white-theme .chat-window {
-            background: #fff;
-            color: #000;
-        }
+.rhap_play-pause-button {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+}
 
-        .red-theme .chat-window {
-            background: #8B0000;
-            color: #fff;
-        }
-    
-          .green-theme .chat-window {
-            background: #B4F585;
-        }
+.rhap_volume-controls {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: flex-end;
+  align-items: center;
+}
 
-        .yellow-theme .chat-window {
-            background: #FACF34;
-            color: #000;
-        }
+.rhap_volume-button {
+  flex: 0 0 26px;
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+  color: #868686;
+  margin-right: 6px;
+}
 
-        .purple-theme .chat-window {
-            background: #855AFF;
-            color: #fff;
-        }            
+.rhap_volume-container {
+  display: flex;
+  align-items: center;
+  flex: 0 1 100px;
+  -webkit-user-select: none;
+}
 
-        /* Иконка шестеренки */
-        .settings-icon {
-            position: fixed;
-            bottom: 625px;
-            right: 20px;
-            background-color: #16213e;
-            border-radius: 50%;
-            padding: 15px;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            font-size: 24px;
-            transition: transform 0.3s ease;
-        }
+.rhap_volume-bar-area {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+}
+.rhap_volume-bar-area:focus:not(:focus-visible) {
+  outline: 0;
+}
 
-        .settings-icon:hover {
-            transform: scale(1.1);
-        }
+.rhap_volume-bar {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: #dddddd;
+  border-radius: 2px;
+}
 
-        /* Меню настроек */
-        .settings-menu {
-            display: none;
-            position: fixed;
-            bottom: 70px;
-            right: 20px;
-            background-color: #2e2e2e;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            width: 200px;
-        }
+.rhap_volume-indicator {
+  box-sizing: border-box;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  left: 0;
+  top: -4px;
+  background: #868686;
+  opacity: 0.9;
+  border-radius: 50px;
+  box-shadow: rgba(134, 134, 134, 0.5) 0 0 3px;
+  cursor: pointer;
+}
+.rhap_volume-indicator:hover {
+  opacity: 0.9;
+}
 
-        .settings-menu select,
-        .settings-menu button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background: #1f1f1f;
-            color: #e0e0e0;
-            border: 1px solid #2c2c2c;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+.rhap_volume-filled {
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  background-color: #868686;
+  border-radius: 2px;
+}
 
-        .settings-menu select {
-            background: #2c2c2c;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <aside class="sidebar">
-            <h2>Новости</h2>
-            <ul>
-                <li>Вероника Тушенка</li>
-                <li>Я гений</li>
-                <li>Давид Тевирп</li>
-            </ul>
-        </aside>
-        <main class="chat-container">
-            <div class="registration-form" id="registrationForm">
-                <h2>Регистрация</h2>
-                <input type="text" id="username" placeholder="Логин">
-                <input type="password" id="password" placeholder="Пароль">
-                <button onclick="register()">Зарегистрироваться</button>
-            </div>
-            <div class="chat-box" id="chatBox" style="display: none;">
-                <div class="chat-window" id="chatWindow"></div>
-                <div class="chat-input">
-                    <input type="text" id="messageInput" placeholder="Введите сообщение...">
-                    <button class="send-button" onclick="sendMessage()">&#9658;</button>
-                </div>
-            </div>
-        </main>
-        <div class="quote-box">
-            <h3>Цитата дня</h3>
-            <p id="quote">"Добро пожаловать в анонимный чат!"</p>
-        </div>
-        <div class="nickname" id="nicknameDisplay"></div>
-    </div>
-
-    <!-- Иконка шестеренки -->
-    <div class="settings-icon" onclick="toggleSettingsMenu()">
-        <i class="fas fa-cogs"></i>
-    </div>
-
-    <!-- Меню настроек -->
-    <div class="settings-menu" id="settingsMenu">
-        <h3>Настройки</h3>
-        <select id="fontSelector" onchange="changeFont()">
-            <option value="Roboto">Шрифт 1: Default</option>
-            <option value="Open Sans">Шрифт 2: Open Sans</option>
-            <option value="Lobster">Шрифт 3: Lobster</option>
-            <option value="Pacifico">Шрифт 4: Pacifico</option>
-            <option value="Courgette">Шрифт 5: Courgette</option>
-            <option value="Quicksand">Шрифт 6: Quicksand</option>
-            <option value="Permanent Marker">Шрифт 7: Permanent Marker</option>
-        </select>
-        <select id="themeSelector" onchange="changeTheme()">
-            <option value="default">Тема: По умолчанию</option>
-            <option value="black-theme">Тема: Черная</option>
-            <option value="white-theme">Тема: Белая</option>
-            <option value="red-theme">Тема: Красная</option>
-            <option value="green-theme">Тема: Зеленая</option>
-            <option value="yellow-theme">Тема: Желтая</option>
-            <option value="purple-theme">Тема: Фиолетовая</option>
-        </select>
-    </div>
-
-    <script>
-        // Функция для регистрации
-        function register() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            if (username && password) {
-                localStorage.setItem('username', username);
-                document.getElementById('registrationForm').style.display = 'none';
-                document.getElementById('chatBox').style.display = 'block';
-                document.getElementById('nicknameDisplay').textContent = username;
-                loadMessages();
-                alert(`Добро пожаловать, ${username}!`);
-            } else {
-                alert('Пожалуйста, заполните все поля!');
-            }
-        }
-
-        // Функция отправки сообщений
-        function sendMessage() {
-            const messageInput = document.getElementById('messageInput');
-            const message = messageInput.value;
-            const chatWindow = document.getElementById('chatWindow');
-            const username = localStorage.getItem('username');
-            if (message && username) {
-                const newMessage = document.createElement('div');
-                const userNick = document.createElement('span');
-                userNick.className = 'nickname-in-message';
-                userNick.textContent = `${username}: `;
-                newMessage.appendChild(userNick);
-                const messageText = document.createElement('span');
-                messageText.textContent = message;
-                newMessage.appendChild(messageText);
-                chatWindow.appendChild(newMessage);
-
-                let messages = JSON.parse(localStorage.getItem('messages')) || [];
-                messages.push({ username, message });
-                localStorage.setItem('messages', JSON.stringify(messages));
-                messageInput.value = '';
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            }
-        }
-
-        // Функция для загрузки сообщений
-        function loadMessages() {
-            const chatWindow = document.getElementById('chatWindow');
-            let messages = JSON.parse(localStorage.getItem('messages')) || [];
-            messages.forEach(msg => {
-                const newMessage = document.createElement('div');
-                const userNick = document.createElement('span');
-                userNick.className = 'nickname-in-message';
-                userNick.textContent = `${msg.username}: `;
-                newMessage.appendChild(userNick);
-                const messageText = document.createElement('span');
-                messageText.textContent = msg.message;
-                newMessage.appendChild(messageText);
-                chatWindow.appendChild(newMessage);
-            });
-        }
-
-        // Функция для изменения шрифта
-        function changeFont() {
-            const font = document.getElementById('fontSelector').value;
-            document.body.style.fontFamily = font;
-        }
-
-        // Функция для изменения темы
-        function changeTheme() {
-            const theme = document.getElementById('themeSelector').value;
-            const chatBox = document.getElementById('chatBox');
-            chatBox.className = theme;
-        }
-
-        // Функция для открытия/закрытия меню настроек
-        function toggleSettingsMenu() {
-            const menu = document.getElementById('settingsMenu');
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'block';
-            }
-        }
-
-        window.onload = function() {
-            const username = localStorage.getItem('username');
-            if (username) {
-                document.getElementById('registrationForm').style.display = 'none';
-                document.getElementById('chatBox').style.display = 'block';
-                document.getElementById('nicknameDisplay').textContent = username;
-                loadMessages();
-            }
-        }
-    </script>
-</body>
-</html>
+/* Utils */
+.rhap_button-clear {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+.rhap_button-clear:hover {
+  opacity: 0.9;
+  transition-duration: 0.2s;
+}
+.rhap_button-clear:active {
+  opacity: 0.95;
+}
+.rhap_button-clear:focus:not(:focus-visible) {
+  outline: 0;
+}
+</style></head><body id="fullscreen-container" class="ctg-modal__vs-select platform-fix-device v-tour__wrapper"><noscript><div style="text-align: center"><strong>Платформа дұрыс жұмыс істеуі үшін құрылғыңыз бен браузеріңіздің баптауларында JavaScript-ті іске қосыңыз.<br><br>Для корректной работы платформы, пожалуйста, активируйте JavaScript в настройках вашего устройства и браузера.</strong></div></noscript><div class="spa-app-container-wrapper spa-app-container--thm-regular with-left-menu"><header class="spa-app__header sa-header ctg-modal__vs-select"><div id="v-app-head__wrapper" class="sa-header__head"><!----><div class="spa-app-container-inner"><div data-v-1176badb="" class="v-logotype"><a data-v-1176badb="" href="/" class="router-link-active v-logotype__head-logo"><img data-v-1176badb="" src="/spa/img/bc_logo.c28d8891.svg" alt="Bilimclass logotype"></a></div><div class="sa-header__menu"><div class="sa-dropdown spa-notifications"><div class="sa-dropdown__back ol-b-orange"></div><div class="sa-dropdown__slot"><div class="sa-header__menu-item"><svg data-v-32a7a324="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--md"><path data-v-32a7a324="" d="M12.0001 22C13.1001 22 14.0001 21.1 14.0001 20H10.0001C10.0001 21.1 10.8901 22 12.0001 22ZM18.0001 16V11C18.0001 7.93 16.3601 5.36 13.5001 4.68V4C13.5001 3.17 12.8301 2.5 12.0001 2.5C11.1701 2.5 10.5001 3.17 10.5001 4V4.68C7.63005 5.36 6.00005 7.92 6.00005 11V16L4.71005 17.29C4.08005 17.92 4.52005 19 5.41005 19H18.5801C19.4701 19 19.9201 17.92 19.2901 17.29L18.0001 16Z"></path></svg><!----></div></div><!----></div><!----><div class="sa-dropdown"><div class="sa-dropdown__back ol-b-dodger-blue"></div><div class="sa-dropdown__slot"><div class="sa-header__menu-item"><svg data-v-32a7a324="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--md"><path data-v-32a7a324="" d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM18.92 8H15.97C15.65 6.75 15.19 5.55 14.59 4.44C16.43 5.07 17.96 6.35 18.92 8ZM12 4.04C12.83 5.24 13.48 6.57 13.91 8H10.09C10.52 6.57 11.17 5.24 12 4.04ZM4.26 14C4.1 13.36 4 12.69 4 12C4 11.31 4.1 10.64 4.26 10H7.64C7.56 10.66 7.5 11.32 7.5 12C7.5 12.68 7.56 13.34 7.64 14H4.26ZM5.08 16H8.03C8.35 17.25 8.81 18.45 9.41 19.56C7.57 18.93 6.04 17.66 5.08 16ZM8.03 8H5.08C6.04 6.34 7.57 5.07 9.41 4.44C8.81 5.55 8.35 6.75 8.03 8ZM12 19.96C11.17 18.76 10.52 17.43 10.09 16H13.91C13.48 17.43 12.83 18.76 12 19.96ZM14.34 14H9.66C9.57 13.34 9.5 12.68 9.5 12C9.5 11.32 9.57 10.65 9.66 10H14.34C14.43 10.65 14.5 11.32 14.5 12C14.5 12.68 14.43 13.34 14.34 14ZM14.59 19.56C15.19 18.45 15.65 17.25 15.97 16H18.92C17.96 17.65 16.43 18.93 14.59 19.56ZM16.36 14C16.44 13.34 16.5 12.68 16.5 12C16.5 11.32 16.44 10.66 16.36 10H19.74C19.9 10.64 20 11.31 20 12C20 12.69 19.9 13.36 19.74 14H16.36Z"></path></svg><span style="margin-left: 0.5rem;"> Русский </span></div></div><!----></div><!----><div class="sa-header__menu-item sa-header__menu-item--user"><div class="sa-user-card__head"><div class="v-spa-user-avatar d-flex align-items-center justify-content-between"><div class="sa-user-card__avatar sa-user-card__avatar--default-shadow sa-user-card__avatar--mini" style="background-color: rgb(171, 60, 0);"><div class="ol-c-white ol-medium ol-upper ol-f-14"> ИВ </div></div><!----><!----><svg data-v-32a7a324="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--md"><path data-v-32a7a324="" d="M15.88 9.29L12 13.17L8.11998 9.29C7.72998 8.9 7.09998 8.9 6.70998 9.29C6.31998 9.68 6.31998 10.31 6.70998 10.7L11.3 15.29C11.69 15.68 12.32 15.68 12.71 15.29L17.3 10.7C17.69 10.31 17.69 9.68 17.3 9.29C16.91 8.91 16.27 8.9 15.88 9.29Z"></path></svg></div><!----></div><div data-v-46dc661f="" class="v-spa-user-profile-menu v-spa-user-profile-menu--hide v-spa-user-profile-menu--mobile"><div data-v-46dc661f="" class="v-spa-user-profile-menu__mobile-close"></div><div data-v-46dc661f="" class="sa-user-card__head"><div class="v-spa-user-avatar d-flex align-items-center justify-content-between"><div class="sa-user-card__avatar sa-user-card__avatar--default-shadow" style="background-color: rgb(171, 60, 0);"><div class="ol-c-white ol-medium ol-upper ol-f-20"> ИВ </div></div><!----><!----><!----></div><div class="sa-user-card__info"><div class="sa-user-card__firstname ol-ellipsis"> Вероника </div><div class="sa-user-card__lastname ol-ellipsis"> Иванова </div><div class="sa-user-card__role"> Ученик </div></div></div><!----><!----><ul data-v-46dc661f="" class="v-spa-user-profile-menu__items"><li data-v-46dc661f=""><div data-v-46dc661f="" class="v-spa-user-profile-menu__item"><div data-v-2d178a4a="" data-v-46dc661f="" class="v-ico-str" style="color: var(--c-ebony-clay); fill: var(--c-ebony-clay); align-items: center;"><svg data-v-32a7a324="" data-v-2d178a4a="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--sm" style="fill: var(--c-light-periwinkle); margin-right: 0.8rem;"><path data-v-32a7a324="" d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z" color="var(--c-light-periwinkle)"></path></svg><span data-v-2d178a4a="">Кабинет</span><!----></div></div></li><li data-v-46dc661f=""><div data-v-46dc661f="" class="v-spa-user-profile-menu__item"><div data-v-2d178a4a="" data-v-46dc661f="" class="v-ico-str" style="color: var(--c-ebony-clay); fill: var(--c-ebony-clay); align-items: center;"><svg data-v-32a7a324="" data-v-2d178a4a="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--sm" style="fill: var(--c-light-periwinkle); margin-right: 0.8rem;"><path data-v-32a7a324="" d="M18 8H17V6C17 3.24 14.76 1 12 1C9.24 1 7 3.24 7 6V8H6C4.9 8 4 8.9 4 10V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V10C20 8.9 19.1 8 18 8ZM9 6C9 4.34 10.34 3 12 3C13.66 3 15 4.34 15 6V8H9V6ZM17 20H7C6.45 20 6 19.55 6 19V11C6 10.45 6.45 10 7 10H17C17.55 10 18 10.45 18 11V19C18 19.55 17.55 20 17 20ZM12 17C13.1 17 14 16.1 14 15C14 13.9 13.1 13 12 13C10.9 13 10 13.9 10 15C10 16.1 10.9 17 12 17Z" color="var(--c-light-periwinkle)"></path></svg><span data-v-2d178a4a="">Пароль и авторизации</span><!----></div></div></li><li data-v-46dc661f=""><div data-v-46dc661f="" class="v-spa-user-profile-menu__item bittersweet"><div data-v-2d178a4a="" data-v-46dc661f="" class="v-ico-str" style="color: var(--c-ebony-clay); fill: var(--c-ebony-clay); align-items: center;"><svg data-v-32a7a324="" data-v-2d178a4a="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--sm" style="fill: var(--c-light-periwinkle); margin-right: 0.8rem;"><path data-v-32a7a324="" d="M10.79 16.29C11.18 16.68 11.81 16.68 12.2 16.29L15.79 12.7C16.18 12.31 16.18 11.68 15.79 11.29L12.2 7.7C11.81 7.31 11.18 7.31 10.79 7.7C10.4 8.09 10.4 8.72 10.79 9.11L12.67 11H4C3.45 11 3 11.45 3 12C3 12.55 3.45 13 4 13H12.67L10.79 14.88C10.4 15.27 10.41 15.91 10.79 16.29ZM19 3H5C3.89 3 3 3.9 3 5V8C3 8.55 3.45 9 4 9C4.55 9 5 8.55 5 8V6C5 5.45 5.45 5 6 5H18C18.55 5 19 5.45 19 6V18C19 18.55 18.55 19 18 19H6C5.45 19 5 18.55 5 18V16C5 15.45 4.55 15 4 15C3.45 15 3 15.45 3 16V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z" color="var(--c-light-periwinkle)"></path></svg><span data-v-2d178a4a="">Выход</span><!----></div></div></li></ul></div></div></div></div></div><div class="sa-header__bottom"><div class="spa-app-container-inner"><ul data-v-3a34083b="" class="spa-breadcrumbs"><li data-v-3a34083b="" class="spa-breadcrumbs__item"><a data-v-3a34083b="" href="/2024/schedule/18.12.2024" class="spa-breadcrumbs__link router-link-active"> Расписание </a><svg data-v-32a7a324="" data-v-3a34083b="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--14" style="fill: var(--c-form-fields);"><path data-v-32a7a324="" d="M7.37999 21.01C7.86999 21.5 8.65999 21.5 9.14999 21.01L17.46 12.7C17.85 12.31 17.85 11.68 17.46 11.29L9.14999 2.98C8.65999 2.49 7.86999 2.49 7.37999 2.98C6.88999 3.47 6.88999 4.26 7.37999 4.75L14.62 12L7.36999 19.25C6.88999 19.73 6.88999 20.53 7.37999 21.01Z" color="var(--c-form-fields)"></path></svg></li><li data-v-3a34083b="" class="spa-breadcrumbs__item"><span data-v-3a34083b=""> Алгоритмы на графах. Урок 1  </span></li></ul><!----></div><div class="spa-app-container-inner spa-app-container-inner--column"><!----><!----></div></div></header><aside data-v-3b7c8196="" class="spa-app__left-menu is-hide"><div data-v-3b7c8196="" class="spa-app__left-menu-header-wrapper"><button data-v-3b7c8196="" data-tour="toggleLeftMenu" class="spa-app__left-menu-close"><div data-v-3b7c8196="" class="ol-ico ol-ico--fa ol-ico--thm-chevron-left"></div></button><div data-v-3b7c8196="" class="spa-app__logotype"><img data-v-3b7c8196="" src="/spa/img/logo_mini.68bc65e3.svg" alt="Bilimland logotype"><img data-v-3b7c8196="" src="/spa/img/logo.c8592580.svg" alt="Bilimland logotype" style="display: none;"></div></div><div data-v-3b7c8196="" class="spa-app__left-menu-touchable"><div data-v-3b7c8196="" class="spa-app__left-menu-wrapper"><div data-v-a654044a="" data-v-3b7c8196="" class="v-menu__wrapper v-menu--without-borders"><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item v-menu-item--active"><div data-v-4cd14a3a="" class="v-menu-item__title ol-pointer v-menu-item--is-open" style="color: var(--c-eucalyptus);"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><svg data-v-32a7a324="" data-v-06400c99="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--md" style="fill: var(--c-eucalyptus);"><path data-v-32a7a324="" d="M21.1667 3L2.83333 3C1.80208 3 1 3.81641 1 4.78125L1 15.4688C1 16.4707 1.80208 17.25 2.83333 17.25H10.1667L9.25 20.8125H6.5C6.15625 20.8125 5.88889 21.1094 5.88889 21.4062C5.88889 21.7402 6.15625 22 6.5 22H17.5C17.8056 22 18.1111 21.7402 18.1111 21.4062C18.1111 21.1094 17.8056 20.8125 17.5 20.8125H14.75L13.8333 17.25H21.1667C22.1597 17.25 23 16.4707 23 15.4687V4.78125C23 3.81641 22.1597 3 21.1667 3ZM10.5104 20.8125L11.1215 18.4375H12.8785L13.4896 20.8125H10.5104ZM21.7778 15.4687C21.7778 15.8027 21.4722 16.0625 21.1667 16.0625H2.83333C2.48958 16.0625 2.22222 15.8027 2.22222 15.4688L2.22222 4.78125C2.22222 4.48438 2.48958 4.1875 2.83333 4.1875L21.1667 4.1875C21.4722 4.1875 21.7778 4.48437 21.7778 4.78125V15.4687Z" color="var(--c-eucalyptus)"></path></svg></div><span data-v-267094fc="" data-v-4cd14a3a="" class="v-menu-link"> BilimClass </span><!----><svg data-v-32a7a324="" data-v-4cd14a3a="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-menu-item__submenu-icon v-ico v-ico--sm"><path data-v-32a7a324="" d="M9.29006 6.71002C8.90006 7.10002 8.90006 7.73002 9.29006 8.12002L13.1701 12L9.29006 15.88C8.90006 16.27 8.90006 16.9 9.29006 17.29C9.68006 17.68 10.3101 17.68 10.7001 17.29L15.2901 12.7C15.6801 12.31 15.6801 11.68 15.2901 11.29L10.7001 6.70002C10.3201 6.32002 9.68006 6.32002 9.29006 6.71002Z"></path></svg></div><div data-v-4cd14a3a="" class="v-menu-item__submenu" style=""><!----><!----><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item v-menu-item--active"><div data-v-4cd14a3a="" class="v-menu-item__title" style="color: var(--c-eucalyptus);"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><div data-v-4cd14a3a="" data-v-06400c99="" class="v-menu-item__point" style="background-color: var(--c-eucalyptus);"></div></div><a data-v-267094fc="" data-v-4cd14a3a="" href="/2024/schedule" class="v-menu-link router-link-active"><span data-v-267094fc=""> Моё расписание </span></a><!----><!----></div><!----></div><!----><!----><!----><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item"><div data-v-4cd14a3a="" class="v-menu-item__title"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><div data-v-4cd14a3a="" data-v-06400c99="" class="v-menu-item__point"></div></div><a data-v-267094fc="" data-v-4cd14a3a="" href="/2024/homework/list" class="v-menu-link"><span data-v-267094fc=""> Домашние задания </span></a><!----><!----></div><!----></div><!----><!----><!----><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item"><div data-v-4cd14a3a="" class="v-menu-item__title"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><div data-v-4cd14a3a="" data-v-06400c99="" class="v-menu-item__point"></div></div><a data-v-267094fc="" data-v-4cd14a3a="" href="/2024/chat" class="v-menu-link"><span data-v-267094fc=""> Связь с учителем </span></a><!----><!----></div><!----></div><!----><!----><!----><!----><!----><!----><!----><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item"><div data-v-4cd14a3a="" class="v-menu-item__title"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><div data-v-4cd14a3a="" data-v-06400c99="" class="v-menu-item__point"></div></div><a data-v-267094fc="" data-v-4cd14a3a="" href="/2024/diary" class="v-menu-link"><span data-v-267094fc=""> Дневник </span></a><!----><!----></div><!----></div><!----><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item"><div data-v-4cd14a3a="" class="v-menu-item__title"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><div data-v-4cd14a3a="" data-v-06400c99="" class="v-menu-item__point"></div></div><a data-v-267094fc="" data-v-4cd14a3a="" href="/2024/summary-estimates" class="v-menu-link"><span data-v-267094fc=""> Оценки </span></a><!----><!----></div><!----></div><!----><!----><!----><!----><!----><!----><!----></div></div><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><div data-v-7a886fce="" data-v-a654044a="" class="v-menu__separate"></div><!----><!----><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item"><div data-v-4cd14a3a="" class="v-menu-item__title"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><svg data-v-32a7a324="" data-v-06400c99="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--md" style="fill: var(--c-pastel-green);"><path data-v-32a7a324="" d="M22.0833 5L4.36111 5C3.82639 5 3.44444 5.42969 3.44444 5.9375V6.25H1.91667C1.38194 6.25 1 6.67969 1 7.1875V18.125C1 19.1797 1.80208 20 2.83333 20H22.0833C22.5799 20 23 19.6094 23 19.0625V5.9375C23 5.42969 22.5799 5 22.0833 5ZM2.22222 18.125V7.5H3.44444V18.125C3.44444 18.4766 3.13889 18.75 2.83333 18.75C2.48958 18.75 2.22222 18.4766 2.22222 18.125ZM21.7778 18.75H4.55208C4.62847 18.5938 4.62847 18.3594 4.62847 18.1641C4.62847 18.1641 4.66667 18.1641 4.66667 18.125V6.25H21.7778V18.75ZM6.34722 15H12.7639C12.9931 15 13.2222 14.8047 13.2222 14.5312V7.96875C13.2222 7.73438 12.9931 7.5 12.7639 7.5H6.34722C6.07986 7.5 5.88889 7.73438 5.88889 7.96875V14.5312C5.88889 14.8047 6.07986 15 6.34722 15ZM7.11111 8.75H12V13.75H7.11111V8.75ZM5.88889 17.0313C5.88889 17.3047 6.07986 17.5 6.34722 17.5H12.7639C12.9931 17.5 13.2222 17.3047 13.2222 17.0313V16.7188C13.2222 16.4844 12.9931 16.25 12.7639 16.25H6.34722C6.07986 16.25 5.88889 16.4844 5.88889 16.7188V17.0313ZM14.4444 17.0313C14.4444 17.3047 14.6354 17.5 14.9028 17.5H20.0972C20.3264 17.5 20.5556 17.3047 20.5556 17.0313V16.7188C20.5556 16.4844 20.3264 16.25 20.0972 16.25H14.9028C14.6354 16.25 14.4444 16.4844 14.4444 16.7188V17.0313ZM14.4444 14.5312C14.4444 14.8047 14.6354 15 14.9028 15H20.0972C20.3264 15 20.5556 14.8047 20.5556 14.5312V14.2188C20.5556 13.9844 20.3264 13.75 20.0972 13.75H14.9028C14.6354 13.75 14.4444 13.9844 14.4444 14.2188V14.5312ZM14.4444 9.53125C14.4444 9.80469 14.6354 10 14.9028 10H20.0972C20.3264 10 20.5556 9.80469 20.5556 9.53125V9.21875C20.5556 8.98438 20.3264 8.75 20.0972 8.75H14.9028C14.6354 8.75 14.4444 8.98438 14.4444 9.21875V9.53125ZM14.4444 12.0313C14.4444 12.3047 14.6354 12.5 14.9028 12.5H20.0972C20.3264 12.5 20.5556 12.3047 20.5556 12.0313V11.7188C20.5556 11.4844 20.3264 11.25 20.0972 11.25H14.9028C14.6354 11.25 14.4444 11.4844 14.4444 11.7188V12.0313Z" color="var(--c-pastel-green)"></path></svg></div><a data-v-267094fc="" data-v-4cd14a3a="" href="/2024/news" class="v-menu-link"><span data-v-267094fc=""> Новости </span></a><!----><!----></div><!----></div><!----><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item"><div data-v-4cd14a3a="" class="v-menu-item__title"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><svg data-v-32a7a324="" data-v-06400c99="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--md" style="fill: var(--c-bittersweet);"><path data-v-32a7a324="" d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 16H13V18H11V16ZM12.61 6.04C10.55 5.74 8.73 7.01 8.18 8.83C8 9.41 8.44 10 9.05 10H9.25C9.66 10 9.99 9.71 10.13 9.33C10.45 8.44 11.4 7.83 12.43 8.05C13.38 8.25 14.08 9.18 14 10.15C13.9 11.49 12.38 11.78 11.55 13.03C11.55 13.04 11.54 13.04 11.54 13.05C11.53 13.07 11.52 13.08 11.51 13.1C11.42 13.25 11.33 13.42 11.26 13.6C11.25 13.63 11.23 13.65 11.22 13.68C11.21 13.7 11.21 13.72 11.2 13.75C11.08 14.09 11 14.5 11 15H13C13 14.58 13.11 14.23 13.28 13.93C13.3 13.9 13.31 13.87 13.33 13.84C13.41 13.7 13.51 13.57 13.61 13.45C13.62 13.44 13.63 13.42 13.64 13.41C13.74 13.29 13.85 13.18 13.97 13.07C14.93 12.16 16.23 11.42 15.96 9.51C15.72 7.77 14.35 6.3 12.61 6.04Z" color="var(--c-bittersweet)"></path></svg></div><a data-v-267094fc="" data-v-4cd14a3a="" href="https://guide.bilimclass.kz/" target="_blank" class="v-menu-link"><span data-v-267094fc=""> Инструкции </span></a><!----><!----></div><!----></div><!----><!----><div data-v-7a886fce="" data-v-a654044a="" class="v-menu__separate"></div><div data-v-4cd14a3a="" data-v-a654044a="" class="v-menu-item"><div data-v-4cd14a3a="" class="v-menu-item__title ol-pointer"><div data-v-06400c99="" data-v-4cd14a3a="" class="v-menu__image"><svg data-v-32a7a324="" data-v-06400c99="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--md"><g data-v-32a7a324=""><path d="M13.3335 18C13.3335 20.5926 15.4076 22.6667 18.0002 22.6667C20.5279 22.6667 22.6668 20.5926 22.6668 18C22.6668 15.4722 20.5279 13.3333 18.0002 13.3333C15.4076 13.3333 13.3335 15.4722 13.3335 18Z" fill="#27AE60"></path><path d="M6.00016 13.3333C3.40757 13.3333 1.3335 15.4722 1.3335 18C1.3335 20.5926 3.40757 22.6667 6.00016 22.6667C8.52794 22.6667 10.6668 20.5926 10.6668 18C10.6668 15.4722 8.52794 13.3333 6.00016 13.3333Z" fill="#F17E00"></path><path d="M13.3335 5.99999C13.3335 8.59259 15.4076 10.6667 18.0002 10.6667C20.5279 10.6667 22.6668 8.59259 22.6668 5.99999C22.6668 3.47222 20.5279 1.33333 18.0002 1.33333C15.4076 1.33333 13.3335 3.47222 13.3335 5.99999Z" fill="#EA546E"></path><path d="M1.3335 5.99999C1.3335 8.59259 3.40757 10.6667 6.00016 10.6667C8.52794 10.6667 10.6668 8.59259 10.6668 5.99999C10.6668 3.47222 8.52794 1.33333 6.00016 1.33333C3.40757 1.33333 1.3335 3.47222 1.3335 5.99999Z" fill="#009FE3"></path></g></svg></div><span data-v-267094fc="" data-v-4cd14a3a="" class="v-menu-link"> Наши продукты </span><!----><svg data-v-32a7a324="" data-v-4cd14a3a="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-menu-item__submenu-icon v-ico v-ico--sm"><path data-v-32a7a324="" d="M9.29006 6.71002C8.90006 7.10002 8.90006 7.73002 9.29006 8.12002L13.1701 12L9.29006 15.88C8.90006 16.27 8.90006 16.9 9.29006 17.29C9.68006 17.68 10.3101 17.68 10.7001 17.29L15.2901 12.7C15.6801 12.31 15.6801 11.68 15.2901 11.29L10.7001 6.70002C10.3201 6.32002 9.68006 6.32002 9.29006 6.71002Z"></path></svg></div><!----></div><!----></div><ul data-v-3b7c8196="" class="spa-app__social sa-social__wrapper mt-auto"><li data-v-3b7c8196="" class="sa-social__item"><a data-v-3b7c8196="" href="https://www.instagram.com/bilimmedia.group" target="_blank" class="sa-social__link ol-ico ol-ico--thm-instagram"></a></li><li data-v-3b7c8196="" class="sa-social__item"><a data-v-3b7c8196="" href="https://www.youtube.com/c/BilimLand" target="_blank" class="sa-social__link ol-ico ol-ico--thm-youtube"></a></li><li data-v-3b7c8196="" class="sa-social__item"><a data-v-3b7c8196="" href="https://www.facebook.com/bilimland" target="_blank" class="sa-social__link ol-ico ol-ico--thm-facebook"></a></li><li data-v-3b7c8196="" class="sa-social__item"><a data-v-3b7c8196="" href="https://vk.com/bilimland" target="_blank" class="sa-social__link ol-ico ol-ico--thm-vkontakte"></a></li></ul></div></div></aside><!----><!----><div class="spa-app-container-inner"><div data-v-ae84e544="" class="ol-view__page" eduyear="2024" date="18.12.2024" scheduleid="074dd6a1-1348-4378-b549-9693265266ad" tab="lesson"><!----><div data-v-1de8eba0="" data-v-ae84e544="" class="mb-20 v-rep-container v-rep-container--styles" style="padding-bottom: 1.6rem; background-color: var(--c-white);"><!----><div id="adfox_169459441636566944" data-v-1de8eba0=""></div><div id="adfox_169459441167159221" data-v-1de8eba0=""></div><!----></div><div class="ol-container-content-wrapper"><div class="ol-container-content"><!----><div data-v-7a40192d="" class="v-page-heading mb-24"><div data-v-7a40192d="" class="v-page-heading__head-title"><div data-v-7a40192d="" class="v-page-heading__title mr-auto">Алгоритмы на графах. Урок 1</div><!----><div data-v-7a40192d="" class="v-page-heading__button"></div></div><div data-v-7a40192d="" class="v-page-heading__caption-title"></div><div data-v-7a40192d="" class="v-page-heading__info-title"></div></div><!----><div class="ol-view__page-body"><div data-v-1de8eba0="" data-v-9aec30fc="" data-v-ae84e544="" class="mt-16 v-rep-container v-rep-container--styles" style="background-color: var(--c-white);"><div data-v-9aec30fc="" data-v-1de8eba0="" class="v-lespage__sticker-row"></div><div data-v-9aec30fc="" data-v-1de8eba0="" class="row flex-sm-column flex-md-row justify-content-md-between"><div data-v-9aec30fc="" data-v-1de8eba0="" class="col-auto mb-16"><div data-v-3c14e631="" data-v-9aec30fc="" class="v-duo-color-str ol-upper" data-v-1de8eba0="" style="font-weight: 700;"><span data-v-3c14e631="" style="color: rgb(174, 174, 174);">Сегодня -</span><span data-v-3c14e631="" style="color: rgb(79, 193, 104);">18 декабря</span></div></div><div data-v-9aec30fc="" data-v-1de8eba0="" class="col-auto mb-16"><div data-v-3c14e631="" data-v-9aec30fc="" class="v-duo-color-str ol-upper" data-v-1de8eba0="" style="font-weight: 700;"><span data-v-3c14e631="" style="color: rgb(174, 174, 174);">Информатика -</span><span data-v-3c14e631="" style="color: rgb(79, 193, 104);">Азамат А. А.</span></div></div></div><!----></div><div data-v-ae84e544="" class="row justify-content-between mt-32 mb-16"><div data-v-ae84e544="" class="col-auto mb-16"><div data-v-910c92a6="" data-v-ae84e544="" class="v-popper v-tooltip v-popper--theme-tooltip" style="margin-left: auto; margin-right: 0.7rem;"><button data-v-6ee05ebe="" data-v-ae84e544="" class="v-butt v-butt--size-md v-butt--outline" style="color: var(--c-dodger-blue); fill: var(--c-dodger-blue); border: 1px solid var(--c-dodger-blue);"><svg data-v-32a7a324="" data-v-6ee05ebe="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-butt__ico v-ico v-ico--md" style="margin-right: 0.4rem;"><path data-v-32a7a324="" d="M20 2H4C2.9 2 2.01 2.9 2.01 4L2 22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM7 9H17C17.55 9 18 9.45 18 10C18 10.55 17.55 11 17 11H7C6.45 11 6 10.55 6 10C6 9.45 6.45 9 7 9ZM13 14H7C6.45 14 6 13.55 6 13C6 12.45 6.45 12 7 12H13C13.55 12 14 12.45 14 13C14 13.55 13.55 14 13 14ZM17 8H7C6.45 8 6 7.55 6 7C6 6.45 6.45 6 7 6H17C17.55 6 18 6.45 18 7C18 7.55 17.55 8 17 8Z"></path></svg><span data-v-6ee05ebe="" class="v-butt__label">Открыть чат</span><!----><!----><!----></button></div></div><div data-v-ae84e544="" class="col-auto mb-16"><!----></div></div><div data-v-21a4e7db="" data-v-ae84e544="" class="v-lespage__taboos v-taboos__wrapper"><div data-v-21a4e7db="" class="v-taboos__head"><div data-v-21a4e7db="" data-taboos="results" class="v-taboos__tab ol-upper v-taboos__tab--flex"><span data-v-21a4e7db="">Итоги урока</span></div><!----><div data-v-21a4e7db="" data-taboos="lesson" class="v-taboos__tab v-taboos__tab--selected ol-upper v-taboos__tab--flex"><span data-v-21a4e7db="">Интерактивный урок</span></div><!----><!----><!----><!----><!----><div data-v-21a4e7db="" data-taboos="conference" class="v-taboos__tab ol-upper v-taboos__tab--flex"><span data-v-21a4e7db="">Видеоконференция</span></div><!----><!----><!----></div><div data-v-21a4e7db="" class="v-taboos__body"><div data-v-21a4e7db="" class="v-taboos__body-item" style="display: none;"><div data-v-ae84e544="" class="v-adp-table__content ol-w-100 px-20 mb-60" data-v-21a4e7db=""><div class="row justify-content-end"><div class="col-12 col-md-4 col-sm-5 col-lg-auto mb-20 mt-20"><button data-v-6ee05ebe="" class="ol-w-100 ol-minw-200 v-butt v-butt--size-md v-butt--outline" style="color: var(--c-eucalyptus); fill: var(--c-eucalyptus); border: 1px solid var(--c-eucalyptus);"><svg data-v-32a7a324="" data-v-6ee05ebe="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-butt__ico v-ico v-ico--md" style="margin-right: 0.4rem;"><g data-v-32a7a324=""><g clip-path="url(#clip0_59_6174)"><path d="M18.65 8.35L15.86 11.14C15.54 11.46 15.76 12 16.21 12H18C18 15.31 15.31 18 12 18C11.21 18 10.44 17.85 9.75003 17.56C9.39003 17.41 8.98003 17.52 8.71003 17.79C8.20003 18.3 8.38003 19.16 9.05003 19.43C9.96003 19.8 10.96 20 12 20C16.42 20 20 16.42 20 12H21.79C22.24 12 22.46 11.46 22.14 11.15L19.35 8.36C19.16 8.16 18.84 8.16 18.65 8.35V8.35ZM6.00003 12C6.00003 8.69 8.69003 6 12 6C12.79 6 13.56 6.15 14.25 6.44C14.61 6.59 15.02 6.48 15.29 6.21C15.8 5.7 15.62 4.84 14.95 4.57C14.04 4.2 13.04 4 12 4C7.58003 4 4.00003 7.58 4.00003 12H2.21003C1.76003 12 1.54003 12.54 1.86003 12.85L4.65003 15.64C4.85003 15.84 5.16003 15.84 5.36003 15.64L8.15003 12.85C8.46003 12.54 8.24003 12 7.79003 12H6.00003V12Z"></path></g><defs><clipPath id="clip0_59_6174"><rect width="24" height="24" fill="white"></rect></clipPath></defs></g></svg><span data-v-6ee05ebe="" class="v-butt__label">Обновить</span><!----><!----><!----></button></div></div><div class="d-flex flex-column align-items-center"><div class="ol-title">Алгоритмы на графах. Урок 1</div><div class="ol-f-16 ol-bold mb-55">Учитель еще не поставил вам оценку по этому уроку!</div><div class="image-group"><!----><img src="/img/lessonResults/wait.svg"></div><!----></div></div></div><div data-v-21a4e7db="" class="v-taboos__body-item" style=""><div data-v-6c5f25a3="" data-v-ae84e544="" class="v-lesson__wrapper" data-v-21a4e7db=""><div data-v-6c5f25a3="" id="platform_bllp" class="v-lesson__platform-wrapper"><div class="bllp-box bllp-cl-prj-bilimland" data-device-mode="desktop" data-embeded="true" data-force-cut="1"><div class="bllp-box-inner-1"><div class="bllp-box-inner-2"><div class="bllp-box-sidepanel"><span class="bllx-icon bllp-icon-left bllx-icon-btn bllp-box-sidepanel-toggler" data-icon="left" title="Свернуть\развернуть" data-role="side-panel-toggler"></span><div class="bllp-box-title"><span>Алгоритмы на графах. Урок 1</span></div><div class="bllp-paginator"><div class="bllp-pag-page" data-type="infoPage" data-inactive="true" data-status="non-ready" title="Обзор урока"><span class="bllx-icon bllp-icon-info-circled bllp-pag-page-icon" data-icon="info-circled"></span><div class="bllp-pag-page-title" style="overflow: hidden; max-height: 41.8px;"><div>Обзор урока</div></div></div><div class="bllp-pag-page" data-type="ordinaryPage" data-active="true" data-status="has-wrong" title="Алгоритмы на графах. Урок 1"><span class="bllx-icon bllp-icon-graduation-cap bllp-pag-page-icon" data-icon="graduation-cap"></span><div class="bllp-pag-page-title" style="overflow: hidden; max-height: 41.8px;"><div>Алгоритмы на графах. Урок 1</div></div><span class="bllp-pag-page-idx">1</span><span class="bllx-icon bllp-icon-up-open bllx-icon-btn bllp-pag-mods-toggler" data-icon="up-open" title="Свернуть\развернуть" data-role="mods-toggler-up"></span></div><div class="bllp-pag-mod-list"><div class="bllp-pag-mod" data-inactive="true" data-status="correct" title="Конспект"><span class="bllx-icon bllp-icon-book-open bllp-pag-mod-icon" data-icon="book-open"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Конспект</div></div></div><div class="bllp-pag-mod" data-active="true" data-status="wrong" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 1</div></div></div><div class="bllp-pag-mod" data-inactive="true" data-status="unchecked" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 2</div></div></div><div class="bllp-pag-mod" data-inactive="true" data-status="unchecked" data-disabled="true" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 3</div></div></div><div class="bllp-pag-mod" data-inactive="true" data-status="unchecked" data-disabled="true" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 4</div></div></div><div class="bllp-pag-mod" data-inactive="true" data-status="unchecked" data-disabled="true" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 5</div></div></div><div class="bllp-pag-mod" data-inactive="true" data-status="unchecked" data-disabled="true" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 6</div></div></div><div class="bllp-pag-mod" data-inactive="true" data-status="unchecked" data-disabled="true" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 7</div></div></div><div class="bllp-pag-mod" data-inactive="true" data-status="unchecked" data-disabled="true" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 8</div></div></div><div class="bllp-pag-mod" data-inactive="true" data-status="unchecked" data-disabled="true" title="Задание"><span class="bllx-icon bllp-icon-edit bllp-pag-mod-icon" data-icon="edit"></span><div class="bllp-pag-mod-title" style="overflow: hidden; max-height: 41.8px;"><div>Задание 9</div></div></div></div><div class="bllp-pag-page" data-type="resultPage" data-inactive="true" data-status="non-ready" data-disabled="true" title="Итог урока"><span class="bllx-icon bllp-icon-flag-1 bllp-pag-page-icon" data-icon="flag-1"></span><div class="bllp-pag-page-title" style="overflow: hidden; max-height: 41.8px;"><div>Итог урока</div></div></div></div></div><div class="bllp-box-backdrop"></div><div class="bllp-platform-wrapper"><div class="bllp-box-body"><div class="bllp-module bllp-module-choice bllp-module-checked bllp-wrong bllp-module-readonly"><div class="bllp-page-title"><span class="bllp-title-text">Алгоритмы на графах. Урок 1</span></div><div class="bllp-module-title "><div class="bllp-title-text"> </div></div><div class="" data-teacher="false"><div class="bllp-module-content"><div class="bllp-content bllp-module-desc" data-con-id="f8de99d0-27f9-11eb-8284-a1affeb7ab07.description"><div class="bllp-c-paragraph"><span><x-plea>Какова цель алгоритма «поиск в ширину»?</x-plea></span></div></div><div data-role="choice" class="bllp-mod-choice bllp-radio-box"><label class="bllp-radio" data-id="3" data-status="incorrect" disabled=""><input type="radio" name="bllp-choice-f8de99d0-27f9-11eb-8284-a1affeb7ab07.items." disabled="" class="bllp-choice-inp" value="3"><div class="bllp-radio-content"><div class="bllp-content" data-con-id="f8de99d0-27f9-11eb-8284-a1affeb7ab07.items.3"><div class="bllp-c-paragraph"><span>найти кратчайший путь обхода всех вершин графа</span></div></div></div></label><label class="bllp-radio" data-id="1" data-sel="true" data-status="incorrect" disabled=""><input type="radio" name="bllp-choice-f8de99d0-27f9-11eb-8284-a1affeb7ab07.items." disabled="" class="bllp-choice-inp" value="1" checked=""><div class="bllp-radio-content"><div class="bllp-content" data-con-id="f8de99d0-27f9-11eb-8284-a1affeb7ab07.items.1"><div class="bllp-c-paragraph"><span>вычислить ширину графа</span></div></div></div></label><label class="bllp-radio" data-id="2" data-status="correct" disabled=""><input type="radio" name="bllp-choice-f8de99d0-27f9-11eb-8284-a1affeb7ab07.items." disabled="" class="bllp-choice-inp" value="2"><div class="bllp-radio-content"><div class="bllp-content" data-con-id="f8de99d0-27f9-11eb-8284-a1affeb7ab07.items.2"><div class="bllp-c-paragraph"><span>обойти все вершины графа, при этом придерживаться приоритетного направления «вглубь»</span></div></div></div></label><label class="bllp-radio" data-id="0" data-status="correct" disabled=""><input type="radio" name="bllp-choice-f8de99d0-27f9-11eb-8284-a1affeb7ab07.items." disabled="" class="bllp-choice-inp" value="0"><div class="bllp-radio-content"><div class="bllp-content" data-con-id="f8de99d0-27f9-11eb-8284-a1affeb7ab07.items.0"><div class="bllp-c-paragraph"><span>найти самую отдаленную («глубокую») вершину</span></div></div></div></label></div></div></div></div><div class="bllp-adapt-hints__wrapper"><div class="bllp-adapt-hint__body bllp-adapt-hint__body--wrong"><div class="bllp-adapt-hint__text bllp-adapt-hint__text--wrong">Извини, ответ неверный!</div></div></div><div class="bllp-hints-box"><div class="bllp-hints-title-wrapper"><div class="bllp-hints-border"></div><div class="bllp-hints-title">Важно знать!</div><div class="bllp-hints-border"></div></div><div class="bllp-hints bllp-hints-" data-role="hint-wrong"><div class="bllp-content" data-con-id="f8de99d0-27f9-11eb-8284-a1affeb7ab07.hints.wrong.basic"><div class="bllp-c-group"><span class="bllp-c-text"><span>Алгоритмом обработки графов является является поиск в ширину.</span></span></div></div></div><div class="bllp-hints-title-wrapper"><div class="bllp-hints-border"></div><div class="bllp-hints-title">Объяснение</div><div class="bllp-hints-border"></div></div><div class="bllp-hints bllp-hints-" data-role="hint-solution"><div class="bllp-content" data-con-id="f8de99d0-27f9-11eb-8284-a1affeb7ab07.hints.solution.basic"><div class="bllp-c-group"><span class="bllp-c-text"><span>Алгоритм решения задачи кратчайшего пути называется поиском в ширину.</span></span></div></div></div></div><div class="bllp-module-control-row"><button class="bllx-button btn-nav-1 bllx-button-nav" data-enabled="true" data-role="prev"><span class="bllx-icon bllp-icon-left" data-icon="left"></span><span class="bllx-button-label">Назад</span></button><div class="bllp-controls-wrapper"></div><button class="bllx-button btn-nav-2  bllx-button-nav-right" data-enabled="true" data-role="next"><span class="bllx-icon bllp-icon-right" data-icon="right"></span><span class="bllx-button-label">Вперед</span></button></div></div></div><div class="bllp-box-cpanel"><span class="bllx-icon bllp-icon-resize-full-alt bllx-icon-btn bllp-box-fullscreen-btn" data-icon="resize-full-alt" title="Развернуть на весь экран\свернуть" data-role="fullscreen"></span></div></div></div></div></div><div data-v-6841fbaa="" data-v-6c5f25a3=""><div data-v-6841fbaa="" class="ol-report-error"><div data-v-6841fbaa="" class="ol-report-error__icon"><span data-v-6841fbaa="" class="ol-ico--size-b ol-ico--fa ol-ico--thm-warning-triangle"></span></div><div data-v-6841fbaa="" class="ol-report-error__text"><span data-v-6841fbaa="">Нашли ошибку в уроке?</span></div></div></div></div></div><!----><!----><div data-v-21a4e7db="" class="v-taboos__body-item" style="display: none;"><div data-v-c54e5d86="" data-v-ae84e544="" class="v-conference ol-w-100" data-v-21a4e7db=""><div data-v-c54e5d86="" class="sa-conference__control"><div data-v-c54e5d86="" class="row sa-conference__control-buttons"><!----><!----><!----></div></div><!----><!----><!----><!----><div data-v-c54e5d86="" class="sa-set-sync-lesson" domain="vb-lb-4.onlinemektep.org"><div class="sa-set-sync-lesson__title ol-c-red-pink"> Синхронный урок </div><div class="sa-set-sync-lesson__desc"> Ваш учитель ещё не запланировал синхронный урок </div><!----><!----><!----></div></div></div><!----></div></div><!----></div><!----></div></div></div></div><div data-v-4eaa0430="" class="v-footer__wrapper spa-app-container-wrapper"><div data-v-4eaa0430="" class="spa-app-container-inner"><div data-v-4eaa0430="" class="v-footer__row"><div data-v-4eaa0430="" class="v-footer__info"><img data-v-4eaa0430="" src="/spa/img/bilimclass_logo.46f342e6.svg" alt="BilimClass Logotype" class="mb-md"><div data-v-4eaa0430="">ТОО "Bilim Land"<br>Республика Казахстан, 010000,<br>г. Астана, Есильский р-н</div></div><div data-v-4eaa0430="" class="v-footer__menu-wrapper"><div data-v-4eaa0430="" class="v-footer__menu"><div data-v-4eaa0430="" class="v-footer__subtitle mb-md">О нас</div><ul data-v-4eaa0430="" class="v-footer__menu-links"><li data-v-4eaa0430="" class="mb-xs"><a data-v-4eaa0430="" href="/2024/news/" target="_blank">Новости</a></li><li data-v-4eaa0430="" class="mb-xs"><a data-v-4eaa0430="" href="/2024/support/" target="_blank">Контакты</a></li></ul></div><div data-v-4eaa0430="" class="v-footer__menu"><div data-v-4eaa0430="" class="v-footer__subtitle mb-md">Поддержка</div><ul data-v-4eaa0430="" class="v-footer__menu-links"><li data-v-4eaa0430="" class="mb-xs"><a data-v-4eaa0430="" href="https://help.bilimland.kz/l_rus/knowledge_base/27748" target="_blank">База знаний</a></li><li data-v-4eaa0430="" class="mb-xs"><a data-v-4eaa0430="" href="mailto:support@bilimland.com" target="_blank">support@bilimland.com</a></li></ul></div></div><div data-v-4eaa0430="" class="v-footer__social-wrapper"><div data-v-4eaa0430="" class="v-footer__subtitle mb-md">Социальные сети</div><ul data-v-4eaa0430="" class="v-footer__social-links"><li data-v-4eaa0430="" class="v-footer__social-link"><a data-v-4eaa0430="" href="https://www.youtube.com/@BilimClass/videos" target="_blank"><svg data-v-32a7a324="" data-v-4eaa0430="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-ico v-ico--lg"><g data-v-32a7a324=""><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#FFFFFF"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2367 7.76561C18.4541 7.98733 18.6108 8.26328 18.691 8.56594C19.1535 10.4643 19.0466 13.4624 18.7 15.4341C18.6197 15.7367 18.4631 16.0127 18.2457 16.2344C18.0283 16.4561 17.7577 16.6159 17.461 16.6978C16.3746 17 12.0019 17 12.0019 17C12.0019 17 7.62926 17 6.54284 16.6978C6.24608 16.6159 5.97552 16.4561 5.75813 16.2344C5.54074 16.0127 5.38408 15.7367 5.30379 15.4341C4.83866 13.5439 4.96618 10.5439 5.2948 8.57511C5.37509 8.27239 5.53175 7.99644 5.74914 7.77472C5.96654 7.553 6.23709 7.39328 6.53385 7.31133C7.62027 7.00917 11.9929 7 11.9929 7C11.9929 7 16.3656 7 17.452 7.30222C17.7488 7.38411 18.0193 7.54389 18.2367 7.76561ZM14.2286 12L10.6012 14.1428V9.85711L14.2286 12Z" fill="#FF0000"></path></g></svg></a></li></ul></div></div></div></div><span data-v-6c7ccb20="" id="_zero_72943" class="hide-block"><a href="https://zero.kz/?s=72943" target="_blank"><img border="0px" width="88" height="31" alt="ZERO.kz" title="ZERO.kz: Слева место в казахстанском рейтинге,
+справа количество казахстанских просмотров в сутки,
+количество казахстанских посетителей в сутки,
+всех посетителей сейчас на сайте" src="https://c.zero.kz/z.png?u=72943&amp;t=1&amp;cc=bcb7d4634fd129&amp;s=6762524917af7&amp;sh=50&amp;slt=2072&amp;d=0&amp;wd=1366&amp;hg=768&amp;cd=24&amp;w=794&amp;h=589&amp;ln=ru-ru&amp;je=0&amp;cs=UTF-8&amp;ce=1&amp;du=https%3A%2F%2Fbilimclass.kz%2F2024%2Fschedule%2F18.12.2024%2Flesson%2F074dd6a1-1348-4378-b549-9693265266ad%2Flesson%2F&amp;tz=-360&amp;dt=BilimClass%20-%20BilimLand&amp;11.012178067979637"></a></span><!----><!----><button data-v-6ee05ebe="" data-v-45293480="" class="v-butt v-butt--size-md v-butt--wider v-butt--min-width v-scroll-to-top" style="background-color: var(--c-primary-400);"><svg data-v-32a7a324="" data-v-6ee05ebe="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="v-butt__ico v-ico v-ico--md"><path data-v-32a7a324="" d="M12.9987 19.0005V7.83047L17.8787 12.7105C18.2687 13.1005 18.9087 13.1005 19.2987 12.7105C19.6887 12.3205 19.6887 11.6905 19.2987 11.3005L12.7087 4.71047C12.3187 4.32047 11.6888 4.32047 11.2988 4.71047L4.69875 11.2905C4.30875 11.6805 4.30875 12.3105 4.69875 12.7005C5.08875 13.0905 5.71875 13.0905 6.10875 12.7005L10.9988 7.83047V19.0005C10.9988 19.5505 11.4488 20.0005 11.9988 20.0005C12.5487 20.0005 12.9987 19.5505 12.9987 19.0005Z"></path></svg><!----><!----><!----><!----></button><div class="v-act-notify__wrapper v-act-notify__wrapper--pos-top-right"></div><div class="gl-modal-window-wrapper"><div></div></div><!----><div data-v-3ca36515="" class="v-sendpulse-clicker sp_popup_2c763990-89a0-4da8-81d0-9c6d3f576b39"></div><div data-v-3ca36515="" class="v-sendpulse-clicker sp_popup_23a4e4c0-8bd6-480f-a44c-11d5f141d233"></div><div data-v-3ca36515="" class="v-sendpulse-clicker sp_popup_3f132f6b-18e3-417e-aec0-3f441a4e54f6"></div><div data-v-3ca36515="" class="v-sendpulse-clicker sp_popup_b1a361aa-bc46-4f01-8c0a-3049a3e27679"></div><!----></div><script>!function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '331851341429939');
+        fbq('track', 'PageView');</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=331851341429939&ev=PageView&noscript=1"/></noscript><script async="" src="https://static.sppopups.com/assets/loader.js" data-chats-widget-id="6c2d3b36-f116-4aa6-831c-4e69153b583f"></script><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-9092233721152709&amp;output=html&amp;adk=3120198944&amp;adf=1851977561&amp;abgtt=6&amp;lmt=1734090966&amp;plat=1%3A16777224%2C2%3A16777224%2C3%3A2162688%2C4%3A2162688%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1048576%2C32%3A32%2C41%3A32%2C42%3A32&amp;format=0x0&amp;url=https%3A%2F%2Fbilimclass.kz%2F2024%2Fschedule%2F18.12.2024%2Flesson%2F074dd6a1-1348-4378-b549-9693265266ad%2Flesson%2F&amp;pra=5&amp;wgl=1&amp;aihb=0&amp;aiof=3&amp;asro=0&amp;ailel=1~2~4~6~7~8~9~10~11~12~13~14~15~16~17~18~19~20~21~24~29~30~34&amp;aiael=1~2~3~4~6~7~8~9~10~11~12~13~14~15~16~17~18~19~20~21~24~29~30~34&amp;aicel=33~38&amp;aifxl=29_18~30_19&amp;aiixl=29_5~30_6&amp;aiict=1&amp;aiapm=0.3221&amp;aiapmi=0.33938&amp;aiombap=1&amp;aief=1&amp;uach=WyJXaW5kb3dzIiwiMTAuMC4wIiwieDg2IiwiIiwiMTMxLjAuNjc3OC4xNDAiLG51bGwsMCxudWxsLCI2NCIsW1siR29vZ2xlIENocm9tZSIsIjEzMS4wLjY3NzguMTQwIl0sWyJDaHJvbWl1bSIsIjEzMS4wLjY3NzguMTQwIl0sWyJOb3RfQSBCcmFuZCIsIjI0LjAuMC4wIl1dLDBd&amp;dt=1734498906787&amp;bpp=3&amp;bdt=531&amp;idt=1099&amp;shv=r20241212&amp;mjsv=m202412090101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie_enabled=1&amp;eoidce=1&amp;nras=1&amp;correlator=8025526368948&amp;frm=20&amp;pv=2&amp;u_tz=360&amp;u_his=6&amp;u_h=768&amp;u_w=1366&amp;u_ah=728&amp;u_aw=1366&amp;u_cd=24&amp;u_sd=1&amp;dmc=4&amp;adx=-12245933&amp;ady=-12245933&amp;biw=811&amp;bih=589&amp;scr_x=0&amp;scr_y=0&amp;eid=31089328%2C31089329%2C31089338%2C95330276%2C95345967&amp;oid=2&amp;pvsid=2962510375548469&amp;tmod=926077350&amp;uas=0&amp;nvt=2&amp;fsapi=1&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C1366%2C0%2C1366%2C728%2C811%2C589&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;bz=1.68&amp;td=1&amp;tdf=2&amp;psd=W251bGwsbnVsbCxudWxsLDNd&amp;nt=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=1134" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><script async="" src="https://static.sppopups.com/bundle.js.gz"></script><sp-popups style="z-index: 2147483647; position: fixed;"></sp-popups><iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe><script type="text/javascript" async="" src="https://c.zero.kz/z.js"></script><script src="/js/platform/lib.39cb3e634d989b05686f.js?v=1.12.28"></script><script src="/js/platform/platform.5084b9be9cb4ca9d275c.js?v=1.12.28"></script><link rel="stylesheet" href="/js/platform/styles.b4ec065713b6a489f820.css?v=1.12.28"></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20241212/r20190131/zrt_lookup_fy2021.html" style="display: none;"></iframe></html>
