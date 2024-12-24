@@ -1,31 +1,31 @@
 import tkinter as tk
-from tkinter import messagebox
 import random
 
-def on_yes():
-    messagebox.showinfo("Ответ", "Хаххаха!")
+def on_yes_click():
+    label.config(text="А ты это и не скрывал")
 
-def on_no(button):
-    # Перемещаем кнопку "Нет" в случайное место
-    button.place(x=random.randint(50, 400), y=random.randint(50, 300))
-    button.config(state=tk.DISABLED)
+def on_no_click(event=None):
+    # Переместить кнопку "Нет" в случайное место на экране
+    new_x = random.randint(0, window.winfo_width() - no_button.winfo_width())
+    new_y = random.randint(0, window.winfo_height() - no_button.winfo_height())
+    no_button.place(x=new_x, y=new_y)
 
-# Создаем главное окно
-root = tk.Tk()
-root.title("Вопрос")
-root.geometry("500x400")
+# Создаем основное окно
+window = tk.Tk()
+window.title("Кушал гири?")
+window.geometry("400x400")
 
-# Вопрос
-question = tk.Label(root, text="Кушал гири?", font=("Arial", 16))
-question.pack(pady=50)
+# Создаем метку с текстом
+label = tk.Label(window, text="Сосал?", font=("Arial", 16))
+label.pack(pady=20)
 
-# Кнопка "Да"
-yes_button = tk.Button(root, text="Да", font=("Arial", 14), command=on_yes)
-yes_button.pack(side=tk.LEFT, padx=50)
+# Создаем кнопки
+yes_button = tk.Button(window, text="Да", command=on_yes_click, font=("Arial", 14))
+yes_button.pack(side="left", padx=40)
 
-# Кнопка "Нет"
-no_button = tk.Button(root, text="Нет", font=("Arial", 14), command=lambda: on_no(no_button))
-no_button.pack(side=tk.RIGHT, padx=50)
+no_button = tk.Button(window, text="Нет", font=("Arial", 14))
+no_button.place(x=200, y=200)  # Начальное расположение
+no_button.bind("<Enter>", on_no_click)  # Реакция на наведение мыши
 
-# Запуск главного цикла
-root.mainloop()
+# Запускаем цикл обработки событий
+window.mainloop()
